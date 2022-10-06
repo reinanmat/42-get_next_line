@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:50:15 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/06 21:55:34 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/06 23:33:25 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr_mod(const char *s, int c);
+int	ft_strchr_mod(char *s);
 char	*ft_strdup(const char *s);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *s);

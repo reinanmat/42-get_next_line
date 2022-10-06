@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:47:32 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/06 19:56:09 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/06 23:31:17 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*fd_read(int fd, char *rest)
 	if (!buf)
 		return (0);
 	chars_read = 1;
-	while (!(ft_strchr(rest, '\n')))
+	while (!(ft_strchr_mod(rest)))
 	{
 		chars_read = read(fd, buf, BUFFER_SIZE);
 		if (chars_read <= 0)
@@ -95,21 +95,21 @@ static char	*fd_read(int fd, char *rest)
 
 char	*get_next_line(int fd)
 {
-	static char	*rest;
+	static char	*rest[1024];
 	char		*line;
 
-	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	rest = fd_read(fd, rest);
-	if (!(ft_strlen(rest)))
+	rest[fd] = fd_read(fd, rest[fd]);
+	if (!(ft_strlen(rest[fd])))
 	{
-		free(rest);
+		free(rest[fd]);
 		return (NULL);
 	}
 	else
 	{
-		line = extract_newline(rest);
-		rest = save_rest(rest);
+		line = extract_newline(rest[fd]);
+		rest[fd] = save_rest(rest[fd]);
 	}
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 01:07:07 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/06 01:19:33 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/06 23:32:53 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr_mod(char *s)
 {
-	int		i;
-	int		len;
+	int	i;
 
-	i = 0;
-	len = ft_strlen(s);
 	if (!s)
 		return (0);
-	if (c == '\0')
-		return (&((char *)s)[len]);
-	while (i <= len)
-	{
-		if (s[i] != '\0' && s[i] == (unsigned char)c)
-			return (&(((char *)s)[i]));
-		i++;
-	}
+	i = -1;
+	while (s[++i])
+		if (s[i] == '\n')
+			return (1);
 	return (0);
 }
