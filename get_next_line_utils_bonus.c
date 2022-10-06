@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 19:30:27 by coder             #+#    #+#             */
-/*   Updated: 2022/10/06 23:20:47 by revieira         ###   ########.fr       */
+/*   Created: 2022/10/06 01:07:07 by revieira          #+#    #+#             */
+/*   Updated: 2022/10/06 01:19:33 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -33,9 +32,12 @@ char	*ft_strdup(const char *s)
 	cpy = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!cpy)
 		return (0);
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
+	{
 		cpy[i] = s[i];
+		i++;
+	}
 	cpy[i] = '\0';
 	return (cpy);
 }
@@ -61,6 +63,7 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	len;
 	int		i;
+	int		j;
 	char	*str;
 
 	if (s1 == NULL)
@@ -69,24 +72,32 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = (char *)malloc(len);
 	if (!str)
 		return (0);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
+	i = 0;
+	j = 0;
+	while (s1[i])
+		str[j++] = s1[i++];
 	str[i] = '\0';
 	ft_strlcat(str, s2, len);
 	free((char *)s1);
 	return (str);
 }
 
-int	ft_strchr_n(char *s)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	int		len;
 
+	i = 0;
+	len = ft_strlen(s);
 	if (!s)
 		return (0);
-	i = -1;
-	while (s[++i])
-		if (s[i] == '\n')
-			return (1);
+	if (c == '\0')
+		return (&((char *)s)[len]);
+	while (i <= len)
+	{
+		if (s[i] != '\0' && s[i] == (unsigned char)c)
+			return (&(((char *)s)[i]));
+		i++;
+	}
 	return (0);
 }

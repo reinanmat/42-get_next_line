@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:58:39 by coder             #+#    #+#             */
-/*   Updated: 2022/10/06 23:20:24 by revieira         ###   ########.fr       */
+/*   Created: 2022/10/06 00:47:32 by revieira          #+#    #+#             */
+/*   Updated: 2022/10/06 19:56:09 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*extract_newline(char *rest)
 {
@@ -25,9 +25,12 @@ static char	*extract_newline(char *rest)
 	new_line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!new_line)
 		return (NULL);
-	i = -1;
-	while (rest[++i] && rest[i] != '\n')
+	i = 0;
+	while (rest[i] && rest[i] != '\n')
+	{
 		new_line[i] = rest[i];
+		i++;
+	}
 	if (rest[i] == '\n')
 	{
 		new_line[i] = rest[i];
@@ -71,7 +74,7 @@ static char	*fd_read(int fd, char *rest)
 	if (!buf)
 		return (0);
 	chars_read = 1;
-	while (!(ft_strchr_n(rest)))
+	while (!(ft_strchr(rest, '\n')))
 	{
 		chars_read = read(fd, buf, BUFFER_SIZE);
 		if (chars_read <= 0)
@@ -95,7 +98,7 @@ char	*get_next_line(int fd)
 	static char	*rest;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	rest = fd_read(fd, rest);
 	if (!(ft_strlen(rest)))
@@ -110,27 +113,3 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-/*
-int	main(int argc, char **argv)
-{
-	char	*line;
-	int		fd;
-
-	(void)argc;
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	line = NULL;
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-		line = "";
-	}
-	//line = get_next_line(fd);
-	//printf("%s", line);
-	//line = get_next_line(fd);
-	//printf("%s", line);
-	close(fd);
-	return (0);
-}*/
