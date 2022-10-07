@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 01:07:07 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/06 23:32:53 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/08 00:06:10 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,6 @@ char	*ft_strdup(const char *s)
 	return (cpy);
 }
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
-{
-	size_t	start;
-	size_t	len;
-	size_t	i;
-
-	i = ft_strlen(dest);
-	if (size < i || (dest[0] == '\0' && size == 0))
-		return (ft_strlen(src) + size);
-	len = i + ft_strlen(src);
-	start = 0;
-	while (i < size - 1 && src[start] != '\0')
-		dest[i++] = src[start++];
-	dest[i] = '\0';
-	return (len);
-}
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	len;
@@ -72,13 +55,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = (char *)malloc(len);
 	if (!str)
 		return (0);
-	i = 0;
+	i = -1;
+	while (s1[++i])
+		str[i] = s1[i];
 	j = 0;
-	while (s1[i])
-		str[j++] = s1[i++];
+	while (s2[j])
+		str[i++] = s2[j++];
 	str[i] = '\0';
-	ft_strlcat(str, s2, len);
-	free((char *)s1);
+	free(s1);
 	return (str);
 }
 

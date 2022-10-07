@@ -6,7 +6,7 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:58:39 by coder             #+#    #+#             */
-/*   Updated: 2022/10/06 23:20:24 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/08 01:29:58 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*save_rest(char *rest)
 static char	*fd_read(int fd, char *rest)
 {
 	char	*buf;
-	int		chars_read;
+	ssize_t	chars_read;
 
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	static char	*rest;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
 		return (NULL);
 	rest = fd_read(fd, rest);
 	if (!(ft_strlen(rest)))
