@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h> // delet
 # include <stdio.h> // delet
-
+//prototipar as demais funções
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr_n(char *s);
