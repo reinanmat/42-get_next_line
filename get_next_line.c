@@ -6,13 +6,26 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:58:39 by coder             #+#    #+#             */
-/*   Updated: 2022/10/08 01:29:58 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:17:19 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*extract_newline(char *rest)
+int	check_line_break(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = -1;
+	while (s[++i])
+		if (s[i] == '\n')
+			return (1);
+	return (0);
+}
+
+char	*extract_new_line(char *rest)
 {
 	char	*new_line;
 	int		i;
@@ -24,7 +37,7 @@ static char	*extract_newline(char *rest)
 		i++;
 	new_line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!new_line)
-		return (NULL);
+		return (0);
 	i = -1;
 	while (rest[++i] && rest[i] != '\n')
 		new_line[i] = rest[i];
@@ -37,7 +50,7 @@ static char	*extract_newline(char *rest)
 	return (new_line);
 }
 
-static char	*save_rest(char *rest)
+char	*extract_new_rest(char *rest)
 {
 	char	*new_rest;
 	int		i;
@@ -53,7 +66,7 @@ static char	*save_rest(char *rest)
 	}
 	new_rest = (char *)malloc(sizeof(char) * (ft_strlen(rest) - i + 1));
 	if (!new_rest)
-		return (NULL);
+		return (0);
 	j = 0;
 	while (rest[++i] != '\0')
 		new_rest[j++] = rest[i];
@@ -62,7 +75,7 @@ static char	*save_rest(char *rest)
 	return (new_rest);
 }
 
-static char	*fd_read(int fd, char *rest)
+char	*fd_read(int fd, char *rest)
 {
 	char	*buf;
 	ssize_t	chars_read;
@@ -71,7 +84,7 @@ static char	*fd_read(int fd, char *rest)
 	if (!buf)
 		return (0);
 	chars_read = 1;
-	while (!(ft_strchr_n(rest)))
+	while (!(check_line_break(rest)))
 	{
 		chars_read = read(fd, buf, BUFFER_SIZE);
 		if (chars_read <= 0)
@@ -86,7 +99,7 @@ static char	*fd_read(int fd, char *rest)
 	}
 	free(buf);
 	if (chars_read == -1)
-		return (0);
+		return (NULL);
 	return (rest);
 }
 
@@ -105,32 +118,8 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		line = extract_newline(rest);
-		rest = save_rest(rest);
+		line = extract_new_line(rest);
+		rest = extract_new_rest(rest);
 	}
 	return (line);
 }
-/*
-int	main(int argc, char **argv)
-{
-	char	*line;
-	int		fd;
-
-	(void)argc;
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	line = NULL;
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-		line = "";
-	}
-	//line = get_next_line(fd);
-	//printf("%s", line);
-	//line = get_next_line(fd);
-	//printf("%s", line);
-	close(fd);
-	return (0);
-}*/

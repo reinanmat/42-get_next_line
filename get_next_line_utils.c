@@ -6,12 +6,11 @@
 /*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:30:27 by coder             #+#    #+#             */
-/*   Updated: 2022/10/07 23:02:57 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:03:33 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -40,29 +39,12 @@ char	*ft_strdup(const char *s)
 	return (cpy);
 }
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
-{
-	size_t	start;
-	size_t	len;
-	size_t	i;
-
-	i = ft_strlen(dest);
-	if (size < i || (dest[0] == '\0' && size == 0))
-		return (ft_strlen(src) + size);
-	len = i + ft_strlen(src);
-	start = 0;
-	while (i < size - 1 && src[start] != '\0')
-		dest[i++] = src[start++];
-	dest[i] = '\0';
-	return (len);
-}
-
 char	*ft_strjoin(char *s1, char *s2)
 {
+	char	*str;
 	size_t	len;
 	int		i;
 	int		j;
-	char	*str;
 
 	if (s1 == NULL)
 		s1 = ft_strdup("");
@@ -79,17 +61,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i] = '\0';
 	free(s1);
 	return (str);
-}
-
-int	ft_strchr_n(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i])
-		if (s[i] == '\n')
-			return (1);
-	return (0);
 }
