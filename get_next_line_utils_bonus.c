@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 01:07:07 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/08 00:06:10 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:03:49 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ char	*ft_strdup(const char *s)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
+	char	*str;
 	size_t	len;
 	int		i;
 	int		j;
-	char	*str;
 
 	if (s1 == NULL)
 		s1 = ft_strdup("");

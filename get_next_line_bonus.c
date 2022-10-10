@@ -6,13 +6,26 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:47:32 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/08 00:40:47 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:29:27 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static char	*extract_newline(char *rest)
+int	check_line_break(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = -1;
+	while (s[++i])
+		if (s[i] == '\n')
+			return (1);
+	return (0);
+}
+
+char	*extract_new_line(char *rest)
 {
 	char	*new_line;
 	int		i;
@@ -24,13 +37,10 @@ static char	*extract_newline(char *rest)
 		i++;
 	new_line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!new_line)
-		return (NULL);
-	i = 0;
-	while (rest[i] && rest[i] != '\n')
-	{
+		return (0);
+	i = -1;
+	while (rest[++i] && rest[i] != '\n')
 		new_line[i] = rest[i];
-		i++;
-	}
 	if (rest[i] == '\n')
 	{
 		new_line[i] = rest[i];
@@ -40,7 +50,7 @@ static char	*extract_newline(char *rest)
 	return (new_line);
 }
 
-static char	*save_rest(char *rest)
+char	*extract_new_rest(char *rest)
 {
 	char	*new_rest;
 	int		i;
@@ -56,7 +66,7 @@ static char	*save_rest(char *rest)
 	}
 	new_rest = (char *)malloc(sizeof(char) * (ft_strlen(rest) - i + 1));
 	if (!new_rest)
-		return (NULL);
+		return (0);
 	j = 0;
 	while (rest[++i] != '\0')
 		new_rest[j++] = rest[i];
@@ -65,7 +75,7 @@ static char	*save_rest(char *rest)
 	return (new_rest);
 }
 
-static char	*fd_read(int fd, char *rest)
+char	*fd_read(int fd, char *rest)
 {
 	char	*buf;
 	int		chars_read;
@@ -74,7 +84,7 @@ static char	*fd_read(int fd, char *rest)
 	if (!buf)
 		return (0);
 	chars_read = 1;
-	while (!(ft_strchr_mod(rest)))
+	while (!(check_line_break(rest)))
 	{
 		chars_read = read(fd, buf, BUFFER_SIZE);
 		if (chars_read <= 0)
@@ -98,8 +108,8 @@ char	*get_next_line(int fd)
 	static char	*rest[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
+		return (0);
 	rest[fd] = fd_read(fd, rest[fd]);
 	if (!(ft_strlen(rest[fd])))
 	{
@@ -108,8 +118,8 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		line = extract_newline(rest[fd]);
-		rest[fd] = save_rest(rest[fd]);
+		line = extract_new_line(rest[fd]);
+		rest[fd] = extract_new_rest(rest[fd]);
 	}
 	return (line);
 }

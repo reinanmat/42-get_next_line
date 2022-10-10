@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:50:15 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/06 23:33:25 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:04:09 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 char	*get_next_line(int fd);
+char	*fd_read(int fd, char *rest);
+char	*extract_new_rest(char *rest);
+char	*extract_new_line(char *rest);
+int		check_line_break(char *s);
+
 char	*ft_strjoin(char *s1, char *s2);
-int	ft_strchr_mod(char *s);
 char	*ft_strdup(const char *s);
-size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 
 #endif
