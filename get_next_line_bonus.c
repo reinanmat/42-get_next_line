@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:47:32 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/14 11:52:46 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:01:39 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,18 @@ char	*extract_new_rest(char *rest)
 char	*fd_read(int fd, char *rest)
 {
 	char	*buf;
-	int		chars_read;
+	int		bytes_read;
 
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (0);
-	chars_read = 1;
+	bytes_read = 1;
 	while (!(check_line_break(rest)))
 	{
-		chars_read = read(fd, buf, BUFFER_SIZE);
-		if (chars_read <= 0)
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		if (bytes_read <= 0)
 			break ;
-		buf[chars_read] = '\0';
+		buf[bytes_read] = '\0';
 		rest = ft_strjoin(rest, buf);
 		if (!rest)
 		{
@@ -98,7 +98,7 @@ char	*fd_read(int fd, char *rest)
 		}
 	}
 	free(buf);
-	if (chars_read == -1)
+	if (bytes_read == -1)
 		return (0);
 	return (rest);
 }
