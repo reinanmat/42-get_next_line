@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 01:07:07 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/10 20:03:49 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/14 12:03:26 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ char	*ft_strdup(const char *s)
 	cpy = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!cpy)
 		return (0);
-	i = 0;
-	while (s[i])
-	{
+	i = -1;
+	while (s[++i])
 		cpy[i] = s[i];
-		i++;
-	}
 	cpy[i] = '\0';
 	return (cpy);
 }

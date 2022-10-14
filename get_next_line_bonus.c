@@ -6,7 +6,7 @@
 /*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:47:32 by revieira          #+#    #+#             */
-/*   Updated: 2022/10/10 20:29:27 by revieira         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:52:46 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,7 @@ char	*get_next_line(int fd)
 		free(rest[fd]);
 		return (NULL);
 	}
-	else
-	{
-		line = extract_new_line(rest[fd]);
-		rest[fd] = extract_new_rest(rest[fd]);
-	}
+	line = extract_new_line(rest[fd]);
+	rest[fd] = extract_new_rest(rest[fd]);
 	return (line);
 }

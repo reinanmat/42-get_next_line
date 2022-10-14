@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: revieira <revieira@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:58:39 by coder             #+#    #+#             */
-/*   Updated: 2022/10/10 20:17:19 by revieira         ###   ########.fr       */
+/*   Created: 2022/10/14 11:55:26 by revieira          #+#    #+#             */
+/*   Updated: 2022/10/14 11:55:30 by revieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,7 @@ char	*get_next_line(int fd)
 		free(rest);
 		return (NULL);
 	}
-	else
-	{
-		line = extract_new_line(rest);
-		rest = extract_new_rest(rest);
-	}
+	line = extract_new_line(rest);
+	rest = extract_new_rest(rest);
 	return (line);
 }
